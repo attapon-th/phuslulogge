@@ -1,7 +1,7 @@
 package main
 
 import (
-	phuslulogger "github.com/attapon-th/phuslulogger"
+	"github.com/attapon-th/phuslulogger"
 	"github.com/phuslu/log"
 )
 
@@ -10,6 +10,9 @@ func main() {
 
 	phuslulogger.SetDefaultlogger()
 
+	log.Debug().Msg("Default logger DEGUG")
 	log.Info().Msg("Default logger INFO")
-	log.Info().Msg("Default logger INFO")
+	log.Warn().Msg("Default logger Warning")
+	log.Error().Msg("Default logger Error")
+	log.Fatal().Msg("Default logger Fatal")
 }
