@@ -1,5 +1,7 @@
 # phuslu-logger
 
+> from: [https://github.com/phuslu/log](https://github.com/phuslu/log)
+>
 
 ## Example
 ```go
