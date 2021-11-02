@@ -3,12 +3,18 @@ package phuslulogger
 import (
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/phuslu/log"
+	"github.com/robfig/cron/v3"
 )
 
 const (
 	DEFAULT_LOGFILE = "logs/log.log"
+)
+
+var (
+	LogCornJob *cron.Cron = nil
 )
 
 // for set log.Logger default
@@ -85,4 +91,16 @@ func GetLoggerFileAndConsole(filelogName string, fileErrName string, logLevel lo
 		},
 	}
 	return logger
+}
+
+func RunLogFileRotation() {
+	if len(listFileWriter) > 0 {
+		runner := cron.New(cron.WithLocation(time.Local))
+		_, _ = runner.AddFunc("0 0 * * *", func() {
+			for _, fw := range listFileWriter {
+				_ = fw.Rotate()
+			}
+		})
+		runner.Run()
+	}
 }
