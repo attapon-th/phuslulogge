@@ -11,29 +11,28 @@ var (
 )
 
 func NewFileWriter() *log.FileWriter {
-	l := log.FileWriter{
-		FileMode: 0644,
-		// MaxSize:      1000 * 1024 * 1024, // 1000MB
-		EnsureFolder: true,
-		LocalTime:    true,
-		MaxBackups:   90, // 90 day
-		TimeFormat:   "2006-01-02",
-		ProcessID:    true,
-	}
+	l := new(log.FileWriter)
+	l.FileMode = 0644
+	l.EnsureFolder = true
+	l.MaxSize = 100 * 1024 * 1024
+	l.LocalTime = true
+	l.MaxBackups = 90
+	l.TimeFormat = "20060102"
+	l.ProcessID = true
 
-	return &l
+	return l
 }
 
 func NewConsoleJson() *log.IOWriter {
-	l := log.IOWriter{os.Stdout}
+	l := new(log.IOWriter)
+	l.Writer = os.Stdout
 
-	return &l
+	return l
 }
 
 func NewConsoleColor() *log.ConsoleWriter {
-	l := log.ConsoleWriter{
-		ColorOutput:    true,
-		EndWithMessage: true,
-	}
-	return &l
+	l := new(log.ConsoleWriter)
+	l.ColorOutput = true
+	l.EndWithMessage = true
+	return l
 }
